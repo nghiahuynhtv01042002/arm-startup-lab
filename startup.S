@@ -37,8 +37,8 @@ Reset_Handler:
 1:
     b 1b
 
-.section .text.Default_Handler
 .thumb_func
+.weak Default_Handler
 .global Default_Handler
 .type Default_Handler, %function
 

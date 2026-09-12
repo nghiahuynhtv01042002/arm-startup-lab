@@ -1,14 +1,12 @@
 TARGET := firmware
 
 CC := arm-none-eabi-gcc
-
 OBJCOPY := arm-none-eabi-objcopy
-
 OBJDUMP := arm-none-eabi-objdump
-
 READELF := arm-none-eabi-readelf
-
 CPUFLAGS := -mcpu=cortex-m3 -mthumb
+
+DMPFILE := $(TARGET).dmp
 
 CFLAGS := $(CPUFLAGS) \
           -ffreestanding \
@@ -69,11 +67,12 @@ debug: $(TARGET).elf
 		-kernel $(TARGET).elf \
 		-S \
 		-gdb tcp::1234
-
+dump_to_file:
+	$(OBJDUMP) -d -D -S -l  $(TARGET).elf > $(DMPFILE)
 dump: $(TARGET).elf
 	$(READELF) -h $(TARGET).elf
 	$(READELF) -S $(TARGET).elf
-	$(OBJDUMP) -d $(TARGET).elf
+	$(OBJDUMP) -d -D -S -l  $(TARGET).elf
 
 clean:
-	rm -f *.o *.elf *.bin *.map
+	rm -f *.o *.elf *.bin *.map *.dmp
