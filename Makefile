@@ -1,8 +1,11 @@
 TARGET := firmware
 
 CC := arm-none-eabi-gcc
+
 OBJCOPY := arm-none-eabi-objcopy
+
 OBJDUMP := arm-none-eabi-objdump
+
 READELF := arm-none-eabi-readelf
 
 CPUFLAGS := -mcpu=cortex-m3 -mthumb
@@ -25,7 +28,9 @@ LDFLAGS := $(CPUFLAGS) \
            -g
 
 SRCS := startup.S main.c uart.c
+
 OBJS := $(SRCS:.c=.o)
+
 OBJS := $(OBJS:.S=.o)
 
 .PHONY: all clean run debug dump
